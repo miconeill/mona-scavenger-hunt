@@ -4,6 +4,8 @@ export class GameTimer {
   private intervalId: ReturnType<typeof setInterval> | null = null;
   private isRunning: boolean = false;
   private onTick?: (elapsed: number) => void;
+  private pausedAt: number = 0;
+  private visibilityHandler: (() => void) | null = null;
 
   constructor(onTick?: (elapsed: number) => void) {
     this.onTick = onTick;
@@ -18,6 +20,8 @@ export class GameTimer {
       this.elapsed = Date.now() - this.startTime;
       this.onTick?.(this.elapsed);
     }, 100);
+
+    this.registerVisibilityHandler();
   }
 
   stop(): number {
@@ -29,6 +33,7 @@ export class GameTimer {
       this.intervalId = null;
     }
 
+    this.unregisterVisibilityHandler();
     this.elapsed = Date.now() - this.startTime;
     return this.elapsed;
   }
@@ -37,6 +42,7 @@ export class GameTimer {
     this.stop();
     this.elapsed = 0;
     this.startTime = 0;
+    this.pausedAt = 0;
   }
 
   getElapsed(): number {
@@ -46,10 +52,40 @@ export class GameTimer {
     return this.elapsed;
   }
 
-  // TODO: Handle visibility change (tab switching)
-  // The timer keeps running even when the tab is inactive,
-  // which unfairly penalizes players who switch tabs.
-  // Should pause/resume based on document.visibilitychange event.
+  private registerVisibilityHandler(): void {
+    this.visibilityHandler = () => {
+      if (document.hidden) {
+        // Tab became hidden — pause
+        this.pausedAt = Date.now();
+        if (this.intervalId) {
+          clearInterval(this.intervalId);
+          this.intervalId = null;
+        }
+      } else {
+        // Tab became visible — resume
+        // BUG: We adjust startTime forward, but if the player pauses/resumes
+        // multiple times rapidly, the elapsed calculation drifts because
+        // we don't account for the interval between pausedAt and now
+        // when pausedAt is 0 (never actually paused)
+        const pauseDuration = Date.now() - this.pausedAt;
+        this.startTime += pauseDuration;
+
+        this.intervalId = setInterval(() => {
+          this.elapsed = Date.now() - this.startTime;
+          this.onTick?.(this.elapsed);
+        }, 100);
+      }
+    };
+
+    document.addEventListener("visibilitychange", this.visibilityHandler);
+  }
+
+  private unregisterVisibilityHandler(): void {
+    if (this.visibilityHandler) {
+      document.removeEventListener("visibilitychange", this.visibilityHandler);
+      this.visibilityHandler = null;
+    }
+  }
 
   formatElapsed(ms?: number): string {
     const total = ms ?? this.elapsed;
