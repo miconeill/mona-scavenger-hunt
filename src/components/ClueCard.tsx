@@ -16,8 +16,10 @@ export function ClueCard({ clue, onAnswer, onHint, hintsRevealed }: ClueCardProp
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // BUG: Case-sensitive comparison means "readme.md" won't match "README.md"
-    if (input === clue.answer) {
+    const normalizedInput = input.trim().toLowerCase();
+    const normalizedAnswer = clue.answer.trim().toLowerCase();
+
+    if (normalizedInput === normalizedAnswer) {
       onAnswer(input);
       setInput("");
     } else {
