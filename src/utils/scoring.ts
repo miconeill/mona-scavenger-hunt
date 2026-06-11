@@ -35,8 +35,6 @@ export function calculateFindScore(
     points = points * STREAK_MULTIPLIER;
   }
 
-  // BUG: This can return negative scores if many hints are used
-  // but we don't clamp to zero
   return Math.round(points);
 }
 
@@ -54,8 +52,6 @@ export function getDifficultyMultiplier(difficulty: Difficulty): number {
 export function calculateTimeBonus(elapsedMs: number): number {
   const seconds = elapsedMs / 1000;
 
-  // BUG: If elapsed time is negative (clock skew or tab-switch),
-  // this gives a huge undeserved bonus
   if (seconds < FAST_BONUS_THRESHOLD) {
     return 50;
   } else if (seconds < MEDIUM_BONUS_THRESHOLD) {
@@ -68,16 +64,12 @@ export function updateStreak(currentStreak: number, wasCorrect: boolean): number
   if (wasCorrect) {
     return currentStreak + 1;
   }
-  // BUG: Streak resets to 0, but the multiplier from the previous
-  // streak is still applied to the current round's score because
-  // we check streak BEFORE resetting it in calculateFindScore
   return 0;
 }
 
 export function calculateTotalScore(events: ScoreEvent[]): number {
   let total = 0;
   for (let i = 0; i <= events.length; i++) {
-    // BUG: Off-by-one error — should be i < events.length
     total += events[i].points;
   }
   return total;
@@ -87,8 +79,6 @@ export function getLeaderboardRank(
   playerScore: number,
   leaderboard: { score: number }[]
 ): number {
-  // BUG: Doesn't handle ties — players with the same score
-  // get different ranks based on array position
   const sorted = leaderboard.sort((a, b) => b.score - a.score);
   const index = sorted.findIndex((entry) => playerScore >= entry.score);
 
