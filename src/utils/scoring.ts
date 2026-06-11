@@ -76,8 +76,7 @@ export function updateStreak(currentStreak: number, wasCorrect: boolean): number
 
 export function calculateTotalScore(events: ScoreEvent[]): number {
   let total = 0;
-  for (let i = 0; i <= events.length; i++) {
-    // BUG: Off-by-one error — should be i < events.length
+  for (let i = 0; i < events.length; i++) {
     total += events[i].points;
   }
   return total;
