@@ -23,6 +23,4 @@ The app uses Vite for development, Framer Motion for animations, and Vitest for 
 - Component tests use React Testing Library
 
 ## Known Issues
-- The streak multiplier in scoring.ts may not reset correctly between rounds
 - Timer continues running when browser tab is inactive
-- Leaderboard doesn't handle ties gracefully
