@@ -1,0 +1,114 @@
+[
+  {
+    "id": "mona-001",
+    "title": "The Octocat's Origin",
+    "riddle": "I live where code is born, in a file that every project starts with. Look for me where READMEs grow.",
+    "hints": [
+      "Think about what you see first when visiting a repository",
+      "I'm hiding in the root of every great project",
+      "The file extension is .md"
+    ],
+    "answer": "README.md",
+    "difficulty": "intern",
+    "monaVariant": "mona-classic",
+    "location": "repository-root"
+  },
+  {
+    "id": "mona-002",
+    "title": "The Secret Workflow",
+    "riddle": "I run in the shadows when code is pushed. Find me in the hidden folder where automation lives.",
+    "hints": [
+      "I'm triggered by events like push and pull_request",
+      "My home starts with a dot",
+      "Look in .github/workflows"
+    ],
+    "answer": ".github/workflows",
+    "difficulty": "intern",
+    "monaVariant": "mona-action",
+    "location": "github-actions"
+  },
+  {
+    "id": "mona-003",
+    "title": "The Branching Path",
+    "riddle": "I split timelines like a multiverse. Developers create me to work in parallel without fear.",
+    "hints": [
+      "I'm created with 'git checkout -b'",
+      "I keep your work separate from main",
+      "Feature, bugfix, and hotfix are my common prefixes"
+    ],
+    "answer": "git branch",
+    "difficulty": "contributor",
+    "monaVariant": "mona-explorer",
+    "location": "version-control"
+  },
+  {
+    "id": "mona-004",
+    "title": "The Guardian of Quality",
+    "riddle": "I stand at the gate before code merges. If I turn red, the PR cannot pass. I check, I lint, I test.",
+    "hints": [
+      "I'm a type of GitHub check",
+      "Branch protection rules require me to pass",
+      "CI/CD pipelines power me"
+    ],
+    "answer": "status check",
+    "difficulty": "contributor",
+    "monaVariant": "mona-guardian",
+    "location": "pull-request"
+  },
+  {
+    "id": "mona-005",
+    "title": "The Ghost in the Graph",
+    "riddle": "I appear as green squares on your profile. The more you commit, the darker I become. Streaks fear my absence.",
+    "hints": [
+      "I visualize your yearly activity",
+      "I'm a grid of colored squares",
+      "Some people call me the 'contribution graph'"
+    ],
+    "answer": "contribution graph",
+    "difficulty": "contributor",
+    "monaVariant": "mona-coder",
+    "location": "profile"
+  },
+  {
+    "id": "mona-006",
+    "title": "The Invisible Reviewer",
+    "riddle": "I suggest changes without being assigned. I know every file you've touched. I'm your AI pair programmer.",
+    "hints": [
+      "I was announced at GitHub Universe",
+      "I live in your editor and your CLI",
+      "My name starts with 'Co'"
+    ],
+    "answer": "GitHub Copilot",
+    "difficulty": "maintainer",
+    "monaVariant": "mona-copilot",
+    "location": "editor"
+  },
+  {
+    "id": "mona-007",
+    "title": "The Dependency Phantom",
+    "riddle": "I alert you when your dependencies have known weaknesses. Ignore me at your peril — I guard the supply chain.",
+    "hints": [
+      "I create automated pull requests to fix vulnerabilities",
+      "I scan package.json, Gemfile, requirements.txt and more",
+      "My name suggests I'm always watching"
+    ],
+    "answer": "Dependabot",
+    "difficulty": "maintainer",
+    "monaVariant": "mona-security",
+    "location": "security"
+  },
+  {
+    "id": "mona-008",
+    "title": "The Final Boss",
+    "riddle": "I am the ultimate permission. With me, you can force push to main, delete the repo, or transfer ownership. I am the highest access level.",
+    "hints": [
+      "I'm a repository permission role",
+      "I'm above 'maintain' in the hierarchy",
+      "Only organization owners can grant me"
+    ],
+    "answer": "admin",
+    "difficulty": "maintainer",
+    "monaVariant": "mona-admin",
+    "location": "settings"
+  }
+]
