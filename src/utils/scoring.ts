@@ -1,4 +1,4 @@
-import { Player, ScoreEvent, Difficulty } from "../types";
+import { ScoreEvent, Difficulty } from "../types";
 
 const BASE_FIND_POINTS = 100;
 const HINT_PENALTY = 20;
